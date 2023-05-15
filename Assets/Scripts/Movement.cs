@@ -18,14 +18,19 @@ public class Movement : MonoBehaviour
 
     public static bool facingRight;
 
+    private SpriteRenderer rend;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         
+        rend = GetComponent<SpriteRenderer>();
+
         facingRight = (Random.value > 0.5f);
 
         if (facingRight)
             direction = new Vector2(1, 0);
+
         else
             direction = new Vector2(-1, 0);
 
@@ -42,6 +47,8 @@ public class Movement : MonoBehaviour
         }
 
         transform.Translate(direction.normalized * Time.deltaTime * speed);
+
+        rend.flipX = !facingRight;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

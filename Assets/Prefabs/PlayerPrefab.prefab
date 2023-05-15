@@ -152,3 +152,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   jumpForce: 2
+  obs: {fileID: 0}
