@@ -2,15 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class Difficulty
+{
+    public int spikesCount;
+    public float playerSpeed;
+}
+
+
 public class Obstacles : MonoBehaviour
 {
+    public int difficultyIncrement;
     public GameObject[] leftSpawnerList;
 
     public GameObject[] rightSpawnerList;
 
     public GameObject banana;
 
-    public void SpawnObstacle(int numberOfSpikes)
+    public Difficulty[] difficulties;
+
+    private GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = GameManager.Instance;
+    }
+
+    public void SpawnObstacle()
     {
         if (Movement.facingRight)
         {
@@ -18,9 +36,16 @@ public class Obstacles : MonoBehaviour
             {
                 spike.SetActive(false);
             }
-            
+
+            if (gameManager == null)
+                gameManager = GameManager.Instance;
+
+            int difficultyLevel = (gameManager.points - 1) / difficultyIncrement;
+            if (difficultyLevel > difficulties.Length - 1)
+                difficultyLevel = difficulties.Length - 1;
+
             List<int> activeSpikes = new List<int>();
-            for (int i = 0; i < numberOfSpikes; i++)
+            for (int i = 0; i < difficulties[difficultyLevel].spikesCount; i++)
             {
                 int randomSpikeIndex = Random.Range(0, leftSpawnerList.Length);
                 while (activeSpikes.Contains(randomSpikeIndex))
@@ -38,9 +63,16 @@ public class Obstacles : MonoBehaviour
             {
                 spike.SetActive(false);
             }
-            
+
+            if (gameManager == null)
+                gameManager = GameManager.Instance;
+
+            int difficultyLevel = (gameManager.points + 1) / difficultyIncrement;
+            if (difficultyLevel > difficulties.Length - 1)
+                difficultyLevel = difficulties.Length - 1;
+
             List<int> activeSpikes = new List<int>();
-            for (int i = 0; i < numberOfSpikes; i++)
+            for (int i = 0; i < difficulties[difficultyLevel].spikesCount; i++)
             {
                 int randomSpikeIndex = Random.Range(0, leftSpawnerList.Length);
                 while (activeSpikes.Contains(randomSpikeIndex))

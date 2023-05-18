@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Movement : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
+        GameManager.Instance.points = 0;
+
         rb = GetComponent<Rigidbody2D>();
         
         rend = GetComponent<SpriteRenderer>();
@@ -34,7 +37,7 @@ public class Movement : MonoBehaviour
         else
             direction = new Vector2(-1, 0);
 
-        obs.SpawnObstacle(5);
+        obs.SpawnObstacle();
     }
 
     
@@ -59,7 +62,16 @@ public class Movement : MonoBehaviour
         {
             direction = new Vector2(-direction.x, direction.y);
             facingRight = !facingRight;
-            obs.SpawnObstacle(3);
+            obs.SpawnObstacle();
+            GameManager.Instance.AddPoints();
+
+
         }
+
+        if (collision.name.Contains("Banana"))
+        {
+            GameManager.Instance.AddCurency();
+        }
+            
     }
 }
