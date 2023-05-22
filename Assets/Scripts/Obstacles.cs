@@ -49,7 +49,7 @@ public class Obstacles : MonoBehaviour
         for (int i = 0; i < difficulties[difficultyLevel].spikesCount; i++)
         {
             int randomSpikeIndex = Random.Range(0, spawner.Length);
-            while (activeSpikes.Contains(randomSpikeIndex) && randomSpikeIndex != lastBananaIndex)
+            while (activeSpikes.Contains(randomSpikeIndex) || banana.transform.position == spawner[randomSpikeIndex].transform.position)
             {
                 randomSpikeIndex = Random.Range(0, spawner.Length);
             }

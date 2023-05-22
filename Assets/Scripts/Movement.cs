@@ -23,6 +23,9 @@ public class Movement : MonoBehaviour
 
     public GameObject banana;
 
+    public GameObject deathMenu;
+
+
     void Start()
     {
         GameManager.Instance.points = 0;
@@ -47,6 +50,9 @@ public class Movement : MonoBehaviour
     
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F))
+        WallBounce();
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = Vector2.zero;
@@ -58,19 +64,31 @@ public class Movement : MonoBehaviour
         rend.flipX = !facingRight;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void WallBounce()
     {
-        if (collision.name.Contains("Spike"))
-            Destroy(gameObject);
-        else if (collision.name.Contains("Wall"))
-        {
-            direction = new Vector2(-direction.x, direction.y);
+        direction = new Vector2(-direction.x, direction.y);
             facingRight = !facingRight;
             obs.SpawnObstacle();
             GameManager.Instance.AddPoints();
-            //AudioManager.instance.Play("nazwa dŸwiêku");
+            //AudioManager.instance.Play("nazwa dï¿½wiï¿½ku");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name.Contains("Spike")){
+            
+            Destroy(gameObject);
+            deathMenu.SetActive(true);
+           
+
+
+
 
         }
+            
+
+        if (collision.name.Contains("Wall"))
+        WallBounce();
 
         if (collision.name.Contains("Banana"))
         {
