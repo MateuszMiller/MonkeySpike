@@ -17,20 +17,18 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-
     public int currency;
     public int points;
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI currencyText;
-
     
     private void Start()
     {
-        AddCurency(0);
+        AddCurency(PlayerPrefs.GetInt("Currency", 0));
+        
         scoreText.SetText("" + points);
         
     }
-
+   
     public void AddPoints()
     {
         points += 1;
@@ -39,6 +37,6 @@ public class GameManager : MonoBehaviour
     public void AddCurency(int diff)
     {
         currency += diff;
-        currencyText.SetText("" + currency);
+        
     }
 }

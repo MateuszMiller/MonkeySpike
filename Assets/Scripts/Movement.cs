@@ -21,30 +21,22 @@ public class Movement : MonoBehaviour
 
     private SpriteRenderer rend;
 
-    public GameObject banana;
+    public DeathScreen deathScreen;
 
-    public GameObject deathMenu;
-
-
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        rend = GetComponent<SpriteRenderer>();
+    }
     void Start()
     {
-        GameManager.Instance.points = 0;
-
-        rb = GetComponent<Rigidbody2D>();
         
-        rend = GetComponent<SpriteRenderer>();
+        facingRight = true;
 
-        facingRight = (Random.value > 0.5f);
-
-        if (facingRight)
-            direction = new Vector2(1, 0);
-
-        else
-            direction = new Vector2(-1, 0);
+        direction = new Vector2(1, 0);
 
         obs.SpawnObstacle();
 
-        
     }
 
     
@@ -55,13 +47,14 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.velocity = Vector2.zero;
-            rb.AddForce(transform.up * jumpForce);
+            Jump();
         }
 
         transform.Translate(direction.normalized * Time.deltaTime * speed);
 
         rend.flipX = !facingRight;
+
+
     }
 
     private void WallBounce()
@@ -72,18 +65,12 @@ public class Movement : MonoBehaviour
             GameManager.Instance.AddPoints();
             //AudioManager.instance.Play("nazwa d�wi�ku");
     }
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.name.Contains("Spike")){
-            
+            deathScreen.OnDead();
             Destroy(gameObject);
-            deathMenu.SetActive(true);
-           
-
-
-
-
         }
             
 
@@ -98,5 +85,10 @@ public class Movement : MonoBehaviour
 
         }
             
+    }
+    public void Jump()
+    {
+        rb.velocity = Vector2.zero;
+        rb.AddForce(transform.up * jumpForce);
     }
 }
