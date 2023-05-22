@@ -21,6 +21,8 @@ public class Movement : MonoBehaviour
 
     private SpriteRenderer rend;
 
+    public GameObject banana;
+
     void Start()
     {
         GameManager.Instance.points = 0;
@@ -38,6 +40,8 @@ public class Movement : MonoBehaviour
             direction = new Vector2(-1, 0);
 
         obs.SpawnObstacle();
+
+        
     }
 
     
@@ -64,13 +68,16 @@ public class Movement : MonoBehaviour
             facingRight = !facingRight;
             obs.SpawnObstacle();
             GameManager.Instance.AddPoints();
-
+            //AudioManager.instance.Play("nazwa dŸwiêku");
 
         }
 
         if (collision.name.Contains("Banana"))
         {
-            GameManager.Instance.AddCurency();
+            
+            GameManager.Instance.AddCurency(1);
+            collision.gameObject.SetActive(false);
+
         }
             
     }

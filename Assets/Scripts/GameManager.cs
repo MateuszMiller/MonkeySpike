@@ -23,9 +23,12 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI currencyText;
 
+    
     private void Start()
     {
+        AddCurency(0);
         scoreText.SetText("" + points);
+        
     }
 
     public void AddPoints()
@@ -33,9 +36,9 @@ public class GameManager : MonoBehaviour
         points += 1;
         scoreText.SetText(""+points);
     }
-    public void AddCurency()
+    public void AddCurency(int diff)
     {
-        currency += 1;
-        currencyText.SetText("" + points);
+        currency += diff;
+        currencyText.SetText("" + currency);
     }
 }
