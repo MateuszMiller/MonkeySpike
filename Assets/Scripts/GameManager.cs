@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     
     private void Start()
     {
-        AddCurency(PlayerPrefs.GetInt("Currency", 0));
+        AddCurrency(PlayerPrefs.GetInt("Currency", 0));
         
         scoreText.SetText("" + points);
         
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         points += 1;
         scoreText.SetText(""+points);
     }
-    public void AddCurency(int diff)
+    public void AddCurrency(int diff)
     {
         currency += diff;
         

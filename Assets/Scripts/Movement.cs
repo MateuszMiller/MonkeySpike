@@ -80,7 +80,7 @@ public class Movement : MonoBehaviour
         if (collision.name.Contains("Banana"))
         {
             
-            GameManager.Instance.AddCurency(1);
+            GameManager.Instance.AddCurrency(1);
             collision.gameObject.SetActive(false);
 
         }
