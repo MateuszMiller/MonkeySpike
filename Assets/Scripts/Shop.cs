@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Shop : MonoBehaviour
 {
     public GameObject panelPrefab;
 
     public GameObject player;
+
+    public GameObject deathMenu;
+
+    public TextMeshProUGUI currencyText;
 
     public void Buy(SkinsScriptableObject skin)
     {
@@ -19,4 +24,26 @@ public class Shop : MonoBehaviour
         }
         
     }
+
+    public void ActivateShop()
+    {
+        if (gameObject.activeSelf)
+        {
+            DeactivateShop();
+            return;
+        }
+        currencyText.SetText(GameManager.Instance.currency.ToString());
+        deathMenu.SetActive(false);
+        gameObject.SetActive(true);
+        if(player != null)
+        {
+            player.SetActive(false);
+        }
+       
+    }
+    public void DeactivateShop()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+   
 }

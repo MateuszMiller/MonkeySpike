@@ -70,7 +70,7 @@ public class Movement : MonoBehaviour
     {
         if (collision.name.Contains("Spike")){
             deathScreen.OnDead();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
             
 
