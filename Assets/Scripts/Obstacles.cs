@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class Difficulty
 {
     public int spikesCount;
     public float playerSpeed;
+    public GameObject bananaPrefab;
 }
 
 public class Obstacles : MonoBehaviour
@@ -20,12 +22,15 @@ public class Obstacles : MonoBehaviour
     [SerializeField] private GameObject[] rightSpawnerList;
     [SerializeField] private GameObject banana;
 
+
     private GameManager gameManager;
     private int lastBananaIndex = -9;
 
     private void Start()
     {
         gameManager = GameManager.Instance;
+
+        
     }
 
     public void SpawnObstacle()
@@ -45,11 +50,12 @@ public class Obstacles : MonoBehaviour
         if (difficultyLevel > difficulties.Length - 1)
             difficultyLevel = difficulties.Length - 1;
 
+        
         List<int> activeSpikes = new List<int>();
         for (int i = 0; i < difficulties[difficultyLevel].spikesCount; i++)
         {
             int randomSpikeIndex = Random.Range(0, spawner.Length);
-            while (activeSpikes.Contains(randomSpikeIndex) || banana.transform.position == spawner[randomSpikeIndex].transform.position)
+            while (activeSpikes.Contains(randomSpikeIndex) ||  (banana != null && banana.transform.position == spawner[randomSpikeIndex].transform.position))
             {
                 randomSpikeIndex = Random.Range(0, spawner.Length);
             }
@@ -57,17 +63,23 @@ public class Obstacles : MonoBehaviour
 
             spawner[randomSpikeIndex].SetActive(true);
         }
-        if (!banana.activeSelf)
+        if (banana == null)
         {
+            
             int bananaIndex = Random.Range(0, spawner.Length);
             while (activeSpikes.Contains(bananaIndex))
             {
                 bananaIndex = Random.Range(0, spawner.Length);
+                
             }
+           
             lastBananaIndex = bananaIndex;
-            banana.transform.position = spawner[bananaIndex].transform.position;
-            banana.SetActive(true);
+            //difficulties[difficultyLevel].bananaPrefab.transform.position = spawner[bananaIndex].transform.position;
+            banana = Instantiate(difficulties[difficultyLevel].bananaPrefab, spawner[bananaIndex].transform.position, Quaternion.identity);
+            
+            //difficulties[difficultyLevel].bananaPrefab.SetActive(true);
         }
     }
+    
 }
 

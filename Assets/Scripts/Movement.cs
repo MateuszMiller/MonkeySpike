@@ -81,7 +81,7 @@ public class Movement : MonoBehaviour
         {
             
             GameManager.Instance.AddCurrency(1);
-            collision.gameObject.SetActive(false);
+            Destroy(collision.gameObject);
 
         }
             
