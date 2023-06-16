@@ -15,6 +15,8 @@ public class Shop : MonoBehaviour
 
     public TextMeshProUGUI currencyText;
 
+    public GameObject optionsMenu;
+
     public void Buy(SkinsScriptableObject skin)
     {
         if (GameManager.Instance.currency >= skin.prize)
@@ -34,6 +36,7 @@ public class Shop : MonoBehaviour
         }
         currencyText.SetText(GameManager.Instance.currency.ToString());
         deathMenu.SetActive(false);
+        optionsMenu.SetActive(false);
         gameObject.SetActive(true);
         if(player != null)
         {

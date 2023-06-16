@@ -14,6 +14,11 @@ public class BlinkingText : MonoBehaviour
         StartCoroutine("Blink");
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     IEnumerator Blink()
     {
 
