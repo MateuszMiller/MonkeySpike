@@ -84,7 +84,11 @@ public class Settings : MonoBehaviour
 
     public void DeactivateSettings()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameObject.SetActive(false);
+        optionsMenu.SetActive(true);
+        player.SetActive(true);
+        BlinkingText.instance._StartCoroutine();
+
     }
 
     public void QuitGame()

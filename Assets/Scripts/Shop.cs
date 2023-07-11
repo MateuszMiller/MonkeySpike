@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.SceneManagement;
 
 public class Shop : MonoBehaviour
@@ -16,6 +17,8 @@ public class Shop : MonoBehaviour
     public TextMeshProUGUI currencyText;
 
     public GameObject optionsMenu;
+
+    public Movement skrypt;
 
     public void Buy(SkinsScriptableObject skin)
     {
@@ -46,7 +49,9 @@ public class Shop : MonoBehaviour
     }
     public void DeactivateShop()
     {
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
     }
    
 }

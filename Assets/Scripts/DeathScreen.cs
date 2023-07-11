@@ -7,27 +7,44 @@ public class DeathScreen : MonoBehaviour
     public TextMeshProUGUI currencyText;
     public TextMeshProUGUI highscoreText;
 
+    public Shop shopScript;
+
+    public int currHighscore;
+    
     public void SetEndInfo(int currency, int highscore)
     {
+        
         currencyText.SetText(currency.ToString());
-        highscoreText.SetText("Highscore: " + highscore);
+        highscoreText.SetText("Highscore: " + highscore.ToString());
     }
 
     public void OnDead()
     {
-        
-        PlayerPrefs.SetInt("Currency", GameManager.Instance.currency);
-        int currHighscore = PlayerPrefs.GetInt("Highscore", 0);
-        if (GameManager.Instance.points > currHighscore)
-        {
-            PlayerPrefs.SetInt("Highscore", GameManager.Instance.points);
-            currHighscore = GameManager.Instance.points;
 
+        int tmpPoints = GameManager.Instance.currency;
+        int tmpCurrency = GameManager.Instance.currency;
+
+        PlayerPrefs.SetInt("Currency", tmpCurrency);
+
+        currHighscore = PlayerPrefs.GetInt("Highscore", 0);
+        if (tmpPoints > currHighscore)
+        {
+            currHighscore = tmpPoints;
+            PlayerPrefs.SetInt("Highscore", currHighscore);
+          
         }
-            
-        SetEndInfo(GameManager.Instance.currency, currHighscore);
+        
+        SetEndInfo(tmpCurrency, currHighscore);
 
         gameObject.SetActive(true);
+    }
+
+    public void GetToShop()
+    {
+        
+        gameObject.SetActive(false);
+        shopScript.ActivateShop();
+
     }
     public void Replay(){
 
