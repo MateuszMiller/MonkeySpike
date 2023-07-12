@@ -14,7 +14,6 @@ public class Settings : MonoBehaviour
 
     Resolution[] resolutions;
 
-
     public GameObject player;
 
     public GameObject optionsMenu;
@@ -54,17 +53,12 @@ public class Settings : MonoBehaviour
 
     public void SetVolume (float volume)
     {
-
         audioMixer.SetFloat("volume",volume);
-
     }
     public void SetFullscreen(bool fullscreen)
     {
-
         Screen.fullScreen = fullscreen;
     }
-
-    
 
     public void ActivateShop()
     {
@@ -79,16 +73,11 @@ public class Settings : MonoBehaviour
         {
             player.SetActive(false);
         }
-
     }
 
     public void DeactivateSettings()
     {
-        gameObject.SetActive(false);
-        optionsMenu.SetActive(true);
-        player.SetActive(true);
-        BlinkingText.instance._StartCoroutine();
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void QuitGame()

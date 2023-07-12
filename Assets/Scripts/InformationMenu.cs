@@ -15,8 +15,17 @@ public class InformationMenu : MonoBehaviour
 
     //public TextMeshProUGUI totalCurrencyText;
 
-    //public TextMeshProUGUI highScoreText;
+    public TextMeshProUGUI highScoreText;
+    public TextMeshProUGUI darkHighScoreText;
 
+    public TextMeshProUGUI deaths;
+    public TextMeshProUGUI darkDeaths;
+
+    public TextMeshProUGUI bananas;
+    public TextMeshProUGUI darkBananas;
+
+    public TextMeshProUGUI timePlayed;
+    public TextMeshProUGUI darkTimePlayed;
     public void ActivateInfo()
     {
         if (gameObject.activeSelf)
@@ -33,6 +42,18 @@ public class InformationMenu : MonoBehaviour
             player.SetActive(false);
         }
 
+        highScoreText.SetText("Highscore: " + PlayerPrefs.GetInt("Highscore", 0).ToString());
+        darkHighScoreText.SetText("Highscore: " + PlayerPrefs.GetInt("DarkHighscore", 0).ToString());
+
+        deaths.SetText("Total deaths: " + PlayerPrefs.GetInt("Deaths", 0).ToString());
+        darkDeaths.SetText("Total deaths: " + PlayerPrefs.GetInt("DarkDeaths", 0).ToString());
+
+        bananas.SetText("Total bananas colected: " + PlayerPrefs.GetInt("Bananas", 0).ToString());
+        darkBananas.SetText("Total bananas colected: " + PlayerPrefs.GetInt("DarkBananas", 0).ToString());
+
+        timePlayed.SetText("Total time played: " + PlayerPrefs.GetFloat("Playtime", 0).ToString());
+        darkTimePlayed.SetText("Total time played: " + PlayerPrefs.GetFloat("DarkPlaytime", 0).ToString());
+
 
 
         //totalCurrencyText.SetText("Total bananas colected: " + GameManager.Instance.totalCurrency.ToString());
@@ -41,9 +62,6 @@ public class InformationMenu : MonoBehaviour
     }
     public void DeactivateInfo()
     {
-        gameObject.SetActive(false);
-        optionsMenu.SetActive(true);
-        player.SetActive(true);
-        BlinkingText.instance._StartCoroutine();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

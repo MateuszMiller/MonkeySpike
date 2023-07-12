@@ -17,41 +17,38 @@ public class GameManager : MonoBehaviour
 
     public int currency;
     public int points;
-    public int totalCurrency;
+
     public TextMeshProUGUI scoreText;
     public int maxPoints;
     public int highscore;
 
-  
-    
+    public int bananasColected;
+    public int darkBananasColected;
+
+    public float timePlayed;
+
     private void Start()
     {
         AddCurrency(PlayerPrefs.GetInt("Currency", 0));
         
         scoreText.SetText("" + points);
-
-    
-        
     }
    
     
     public void AddPoints()
     {
         points += 1;
-        highscore += 1;
         scoreText.SetText(""+points);
+
     }
     
     public void AddCurrency(int diff)
     {
         currency += diff;
-        totalCurrency += diff;
-
     }
 
     public void ChangeMode()
     {
-
         int sceneIndexToLoad = SceneManager.GetActiveScene().buildIndex == 0 ? 1 : 0;
         SceneManager.LoadScene(sceneIndexToLoad);
     }

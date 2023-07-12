@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
@@ -39,6 +40,8 @@ public class Movement : MonoBehaviour
         direction = new Vector2(1, 0);
 
         obs.SpawnObstacle();
+
+        GameManager.Instance.timePlayed = 0;
     }
 
     void Update()
@@ -47,6 +50,8 @@ public class Movement : MonoBehaviour
             Jump();
 
         transform.Translate(direction.normalized * Time.deltaTime * speed);
+
+        GameManager.Instance.timePlayed += Time.deltaTime;
     }
 
     private void WallBounce()
@@ -57,7 +62,10 @@ public class Movement : MonoBehaviour
         rend.flipX = !facingRight;
         obs.SpawnObstacle();
         GameManager.Instance.AddPoints();
-        flashlight.localScale = new Vector2(-flashlight.localScale.x, flashlight.localScale.y);
+
+        
+
+            flashlight.localScale = new Vector2(-flashlight.localScale.x, flashlight.localScale.y);
 
         //AudioManager.instance.Play("nazwa d�wi�ku");
     }
@@ -76,6 +84,14 @@ public class Movement : MonoBehaviour
         if (collision.name.Contains("Banana"))
         {
             GameManager.Instance.AddCurrency(1);
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                GameManager.Instance.bananasColected += 1;
+            }
+            else if (SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                GameManager.Instance.darkBananasColected += 1;
+            }
             Destroy(collision.gameObject);
         }
     }
