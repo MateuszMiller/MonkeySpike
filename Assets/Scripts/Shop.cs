@@ -8,31 +8,37 @@ using UnityEngine.SceneManagement;
 
 public class Shop : MonoBehaviour
 {
-    public GameObject panelPrefab;
-
+    public GameObject shopPanel;
     public GameObject player;
-
     public GameObject deathMenu;
-
+    public GameObject optionsMenu;
+    public GameObject panelPrefab;
     public TextMeshProUGUI currencyText;
 
-    public GameObject optionsMenu;
+    public ShopButton[] shopButtons;
+    public Skin[] skins;
 
-    public Movement skrypt;
-
-    public void Buy(SkinsScriptableObject skin)
+    private void Start()
     {
-        if (GameManager.Instance.currency >= skin.prize)
+        int equippedSkin = PlayerPrefs.GetInt("EquippedSkin", 0); 
+        for (int i = 0; i < skins.Length; i++)
         {
-            player.GetComponent<SpriteRenderer>().sprite = skin.skinImage;
-            GameManager.Instance.AddCurrency(-skin.prize);
+            shopButtons[i].SetupSkin(skins[i]);
+            if (skins[i].id == equippedSkin)
+            {
+                PlayerSkinController.Instance.SetSkin(skins[i]);
+            }
+            if (PlayerPrefs.GetInt($"Skin_{skins[i].id}", 0) == 1)
+            {
+                shopButtons[i].buyButton.SetActive(false);
+            }
         }
-        
+
     }
 
     public void ActivateShop()
     {
-        if (gameObject.activeSelf)
+        if (shopPanel.gameObject.activeSelf)
         {
             DeactivateShop();
             return;
@@ -40,7 +46,7 @@ public class Shop : MonoBehaviour
         currencyText.SetText(GameManager.Instance.currency.ToString());
         deathMenu.SetActive(false);
         optionsMenu.SetActive(false);
-        gameObject.SetActive(true);
+        shopPanel.gameObject.SetActive(true);
         if(player != null)
         {
             player.SetActive(false);
@@ -49,9 +55,9 @@ public class Shop : MonoBehaviour
     }
     public void DeactivateShop()
     {
-        
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        
+
     }
    
 }

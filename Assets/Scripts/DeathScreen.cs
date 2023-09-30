@@ -16,7 +16,7 @@ public class DeathScreen : MonoBehaviour
         currencyText.SetText(currency.ToString());
         highscoreText.SetText("Highscore: " + highscore.ToString());
     }
-
+    
     public void OnDead()
     {
         int tmpPoints = GameManager.Instance.points;

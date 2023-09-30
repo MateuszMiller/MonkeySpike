@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f0d6d65633304d448464688ac43b145, type: 3}
-  m_Name: BlueMonkey
+  m_Name: Gorrila
   m_EditorClassIdentifier: 
-  prize: 20
-  skinImage: {fileID: 21300000, guid: dcea51d6065d64246aeec467afeff684, type: 3}
+  id: 1
+  cost: 20
+  skinSprite: {fileID: 21300000, guid: 34176a5dd7c3ace43ba71aa084f15cfc, type: 3}

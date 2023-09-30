@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
 
     public float timePlayed;
 
+    public int skinID;
+
     private void Start()
     {
         AddCurrency(PlayerPrefs.GetInt("Currency", 0));
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
     public void AddCurrency(int diff)
     {
         currency += diff;
+        PlayerPrefs.SetInt("Currency", currency);
     }
 
     public void ChangeMode()

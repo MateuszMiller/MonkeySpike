@@ -7,26 +7,22 @@ using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
-
     public float speed;
-
     public float jumpForce;
 
     public Obstacles obs;
 
     private Rigidbody2D rb;
+    private SpriteRenderer rend;
+    public Transform flashlight;
 
     private Vector2 direction;
-
     public static bool facingRight;
 
-    private SpriteRenderer rend;
-
     public DeathScreen deathScreen;
-
     public GameObject spawnMenu;
 
-    public Transform flashlight;
+    public ScriptableObject skin;
 
     void Awake()
     {
@@ -52,6 +48,8 @@ public class Movement : MonoBehaviour
         transform.Translate(direction.normalized * Time.deltaTime * speed);
 
         GameManager.Instance.timePlayed += Time.deltaTime;
+
+        
     }
 
     private void WallBounce()

@@ -51,8 +51,11 @@ public class InformationMenu : MonoBehaviour
         bananas.SetText("Total bananas colected: " + PlayerPrefs.GetInt("Bananas", 0).ToString());
         darkBananas.SetText("Total bananas colected: " + PlayerPrefs.GetInt("DarkBananas", 0).ToString());
 
-        timePlayed.SetText("Total time played: " + PlayerPrefs.GetFloat("Playtime", 0).ToString());
-        darkTimePlayed.SetText("Total time played: " + PlayerPrefs.GetFloat("DarkPlaytime", 0).ToString());
+        int playTimeSeconds = (int)PlayerPrefs.GetFloat("Playtime", 0);
+        int playTimeSecondsDark = (int)PlayerPrefs.GetFloat("DarkPlaytime", 0);
+
+        timePlayed.SetText("Total time played: " + playTimeSeconds + " seconds");
+        darkTimePlayed.SetText("Total time played: " + playTimeSecondsDark + " seconds");
 
 
 

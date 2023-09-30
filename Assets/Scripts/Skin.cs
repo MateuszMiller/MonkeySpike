@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skins/New skin")]
-public class SkinsScriptableObject : ScriptableObject
+public class Skin : ScriptableObject
 {
-    public int prize;
-    public Sprite skinImage;
+    public int id;
+    public int cost;
+    public Sprite skinSprite;
 }
